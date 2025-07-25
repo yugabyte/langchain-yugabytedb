@@ -12,7 +12,6 @@ from langchain_postgres import PGEngine, PGVectorStore
 from langchain_postgres.v2.indexes import (
     DistanceStrategy,
     HNSWIndex,
-    IVFFlatIndex,
 )
 from tests.utils import VECTORSTORE_CONNECTION_STRING as CONNECTION_STRING
 
@@ -99,21 +98,6 @@ class TestIndex:
         result = vs.is_valid_index(DEFAULT_INDEX_NAME)
         assert not result
 
-    async def test_aapply_vector_index_ivfflat(self, vs: PGVectorStore) -> None:
-        index = IVFFlatIndex(
-            name=DEFAULT_INDEX_NAME, distance_strategy=DistanceStrategy.EUCLIDEAN
-        )
-        vs.apply_vector_index(index, concurrently=True)
-        assert vs.is_valid_index(DEFAULT_INDEX_NAME)
-        index = IVFFlatIndex(
-            name="secondindex",
-            distance_strategy=DistanceStrategy.INNER_PRODUCT,
-        )
-        vs.apply_vector_index(index)
-        assert vs.is_valid_index("secondindex")
-        vs.drop_vector_index("secondindex")
-        vs.drop_vector_index(DEFAULT_INDEX_NAME)
-
     async def test_is_valid_index(self, vs: PGVectorStore) -> None:
         is_valid = vs.is_valid_index("invalid_index")
         assert not is_valid
@@ -160,21 +144,6 @@ class TestAsyncIndex:
         await vs.adrop_vector_index(DEFAULT_INDEX_NAME_ASYNC)
         result = await vs.ais_valid_index(DEFAULT_INDEX_NAME_ASYNC)
         assert not result
-
-    async def test_aapply_vector_index_ivfflat(self, vs: PGVectorStore) -> None:
-        index = IVFFlatIndex(
-            name=DEFAULT_INDEX_NAME_ASYNC, distance_strategy=DistanceStrategy.EUCLIDEAN
-        )
-        await vs.aapply_vector_index(index, concurrently=True)
-        assert await vs.ais_valid_index(DEFAULT_INDEX_NAME_ASYNC)
-        index = IVFFlatIndex(
-            name="secondindex",
-            distance_strategy=DistanceStrategy.INNER_PRODUCT,
-        )
-        await vs.aapply_vector_index(index)
-        assert await vs.ais_valid_index("secondindex")
-        await vs.adrop_vector_index("secondindex")
-        await vs.adrop_vector_index(DEFAULT_INDEX_NAME_ASYNC)
 
     async def test_is_valid_index(self, vs: PGVectorStore) -> None:
         is_valid = await vs.ais_valid_index("invalid_index")

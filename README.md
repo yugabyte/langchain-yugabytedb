@@ -1,13 +1,6 @@
-# langchain-postgres
+# langchain-yugabytedb
 
-[![Release Notes](https://img.shields.io/github/release/langchain-ai/langchain-postgres)](https://github.com/langchain-ai/langchain-postgres/releases)
-[![CI](https://github.com/langchain-ai/langchain-postgres/actions/workflows/ci.yml/badge.svg)](https://github.com/langchain-ai/langchain-postgres/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/langchainai.svg?style=social&label=Follow%20%40LangChainAI)](https://twitter.com/langchainai)
-[![](https://dcbadge.vercel.app/api/server/6adMQxSpJS?compact=true&style=flat)](https://discord.gg/6adMQxSpJS)
-[![Open Issues](https://img.shields.io/github/issues-raw/langchain-ai/langchain-postgres)](https://github.com/langchain-ai/langchain-postgres/issues)
-
-The `langchain-postgres` package implementations of core LangChain abstractions using `Postgres`.
+The `langchain-yugabytedb` package implementations of core LangChain abstractions using `YugabyteDB` Distributed SQL Database.
 
 The package is released under the MIT license.
 
@@ -20,30 +13,22 @@ The package supports the [asyncpg](https://github.com/MagicStack/asyncpg) and [p
 ## Installation
 
 ```bash
-pip install -U langchain-postgres
+pip install -U langchain-yugabytedb
 ```
-
-## Vectorstore
-
-> [!WARNING]
-> In v0.0.14+, `PGVector` is deprecated. Please migrate to `PGVectorStore`
-> for improved performance and manageability.
-> See the [migration guide](https://github.com/langchain-ai/langchain-postgres/blob/main/examples/migrate_pgvector_to_pgvectorstore.ipynb) for details on how to migrate from `PGVector` to `PGVectorStore`.
 
 ### Documentation
 
-* [Quickstart](https://github.com/langchain-ai/langchain-postgres/blob/main/examples/pg_vectorstore.ipynb)
-* [How-to](https://github.com/langchain-ai/langchain-postgres/blob/main/examples/pg_vectorstore_how_to.ipynb)
+* [Quickstart](https://docs.yugabyte.com/preview/explore/ysql-language-features/pg-extensions/extension-pgvector/#hnsw)
 
 ### Example
 
 ```python
 from langchain_core.documents import Document
 from langchain_core.embeddings import DeterministicFakeEmbedding
-from langchain_postgres import PGEngine, PGVectorStore
+from langchain_yugabytedb import YBEngine, YugabyteDBVectorStore
 
-# Replace the connection string with your own Postgres connection string
-CONNECTION_STRING = "postgresql+psycopg3://langchain:langchain@localhost:6024/langchain"
+# Replace the connection string with your own YugabyteDB connection string
+CONNECTION_STRING = "postgresql+psycopg3://yugabyte:@localhost:5433/yugabyte"
 engine = PGEngine.from_connection_string(url=CONNECTION_STRING)
 
 # Replace the vector size with your own vector size
@@ -57,7 +42,7 @@ engine.init_vectorstore_table(
     vector_size=VECTOR_SIZE,
 )
 
-store = PGVectorStore.create_sync(
+store = YugabyteDBVectorStore.create_sync(
     engine=engine,
     table_name=TABLE_NAME,
     embedding_service=embedding,
@@ -82,9 +67,9 @@ print(docs)
 ## ChatMessageHistory
 
 The chat message history abstraction helps to persist chat message history
-in a postgres table.
+in a YugabyteDB table.
 
-PostgresChatMessageHistory is parameterized using a `table_name` and a `session_id`.
+YugabyteDBChatMessageHistory is parameterized using a `table_name` and a `session_id`.
 
 The `table_name` is the name of the table in the database where
 the chat messages will be stored.
@@ -96,7 +81,7 @@ by the caller using `uuid.uuid4()`.
 import uuid
 
 from langchain_core.messages import SystemMessage, AIMessage, HumanMessage
-from langchain_postgres import PostgresChatMessageHistory
+from langchain_yugabytedb import YugabyteDBChatMessageHistory
 import psycopg
 
 # Establish a synchronous connection to the database
@@ -106,12 +91,12 @@ sync_connection = psycopg.connect(conn_info)
 
 # Create the table schema (only needs to be done once)
 table_name = "chat_history"
-PostgresChatMessageHistory.create_tables(sync_connection, table_name)
+YugabyteDBChatMessageHistory.create_tables(sync_connection, table_name)
 
 session_id = str(uuid.uuid4())
 
 # Initialize the chat history manager
-chat_history = PostgresChatMessageHistory(
+chat_history = YugabyteDBChatMessageHistory(
     table_name,
     session_id,
     sync_connection=sync_connection
@@ -126,22 +111,3 @@ chat_history.add_messages([
 
 print(chat_history.messages)
 ```
-
-## Google Cloud Integrations
-
-[Google Cloud](https://python.langchain.com/docs/integrations/providers/google/) provides Vector Store, Chat Message History, and Data Loader integrations for [AlloyDB](https://cloud.google.com/alloydb) and [Cloud SQL](https://cloud.google.com/sql) for PostgreSQL databases via the following PyPi packages:
-
-* [`langchain-google-alloydb-pg`](https://github.com/googleapis/langchain-google-alloydb-pg-python)
-
-* [`langchain-google-cloud-sql-pg`](https://github.com/googleapis/langchain-google-cloud-sql-pg-python)
-
-Using the Google Cloud integrations provides the following benefits:
-
-- **Enhanced Security**: Securely connect to Google Cloud databases utilizing IAM for authorization and database authentication without needing to manage SSL certificates, configure firewall rules, or enable authorized networks.
-- **Simplified and Secure Connections:** Connect to Google Cloud databases effortlessly using the instance name instead of complex connection strings. The integrations creates a secure connection pool that can be easily shared across your application using the `engine` object.
-
-| Vector Store             | Metadata filtering | Async support  | Schema Flexibility | Improved metadata handling | Hybrid Search |
-|--------------------------|--------------------|----------------|--------------------|----------------------------|---------------|
-| Google AlloyDB           |          ✓         |        ✓       |         ✓          |             ✓              |       ✗       |
-| Google Cloud SQL Postgres|          ✓         |        ✓       |         ✓          |             ✓              |       ✗       |
-

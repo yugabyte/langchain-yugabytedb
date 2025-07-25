@@ -1,10 +1,10 @@
 [project]
-name = "langchain-postgres"
-version = "0.0.14"
+name = "langchain-yugabytedb"
+version = "0.0.1"
 description = "An integration package connecting Postgres and LangChain"
 authors = []
 readme = "README.md"
-repository = "https://github.com/langchain-ai/langchain-postgres"
+repository = "https://github.com/yugabyte/langchain-yugabytedb"
 requires-python = ">=3.9"
 license = "MIT"
 dependencies = [
@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [tool.poetry.urls]
-"Source Code" = "https://github.com/langchain-ai/langchain-postgres/tree/master/langchain_postgres"
+"Source Code" = "https://github.com/yugabyte/langchain-yugabytedb/tree/master/langchain_yugabytedb"
 
 [dependency-groups]
 test = [

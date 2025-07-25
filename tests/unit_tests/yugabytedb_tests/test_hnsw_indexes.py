@@ -2,7 +2,7 @@ import warnings
 
 import pytest
 
-from langchain_postgres.v2.indexes import (
+from langchain_yugabytedb.indexes import (
     DistanceStrategy,
     HNSWIndex,
     HNSWQueryOptions,
@@ -10,7 +10,7 @@ from langchain_postgres.v2.indexes import (
 
 
 @pytest.mark.enable_socket
-class TestPGIndex:
+class TestYBIndex:
     def test_distance_strategy(self) -> None:
         assert DistanceStrategy.EUCLIDEAN.operator == "<->"
         assert DistanceStrategy.EUCLIDEAN.search_function == "l2_distance"

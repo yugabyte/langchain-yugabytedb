@@ -13,24 +13,24 @@ from typing_extensions import AsyncGenerator, Generator
 # To spint up the postgres service for testing, run:
 # cd [root]/docker-compose.yml
 # docker-compose up pgvector
-POSTGRES_USER = os.environ.get("POSTGRES_USER", "langchain")
-POSTGRES_HOST = os.environ.get("POSTGRES_HOST", "localhost")
-POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD", "langchain")
-POSTGRES_DB = os.environ.get("POSTGRES_DB", "langchain_test")
+YUGABYTEDB_USER = os.environ.get("YUGABYTEDB_USER", "yugabyte")
+YUGABYTEDB_HOST = os.environ.get("YUGABYTEDB_HOST", "localhost")
+YUGABYTEDB_PASSWORD = os.environ.get("YUGABYTEDB_PASSWORD", "")
+YUGABYTEDB_DB = os.environ.get("YUGABYTEDB_DB", "yugabyte")
 
-POSTGRES_PORT = os.environ.get("POSTGRES_PORT", "5432")
+YUGABYTEDB_PORT = os.environ.get("YUGABYTEDB_PORT", "5433")
 
 DSN = (
-    f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}"
-    f":{POSTGRES_PORT}/{POSTGRES_DB}"
+    f"postgresql://{YUGABYTEDB_USER}:{YUGABYTEDB_PASSWORD}@{YUGABYTEDB_HOST}"
+    f":{YUGABYTEDB_PORT}/{YUGABYTEDB_DB}"
 )
 
 # Connection string used primarily by the vectorstores tests
 # it's written to work with SQLAlchemy (takes a driver name)
 # It is also running on a postgres instance that has the pgvector extension
 VECTORSTORE_CONNECTION_STRING = (
-    f"postgresql+psycopg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}"
-    f":{POSTGRES_PORT}/{POSTGRES_DB}"
+    f"postgresql+psycopg://{YUGABYTEDB_USER}:{YUGABYTEDB_PASSWORD}@{YUGABYTEDB_HOST}"
+    f":{YUGABYTEDB_PORT}/{YUGABYTEDB_DB}"
 )
 
 
