@@ -2,9 +2,9 @@
 name = "langchain-yugabytedb"
 version = "0.0.1"
 description = "An integration package connecting Postgres and LangChain"
-authors = []
+authors = [{name = "Yugabyte", email = "nikhil@yugabyte.com"},]
 readme = "README.md"
-repository = "https://github.com/yugabyte/langchain-yugabytedb"
+repository = "https://github.com/nchandrappa/langchain-yugabytedb"
 requires-python = ">=3.9"
 license = "MIT"
 dependencies = [
@@ -15,10 +15,11 @@ dependencies = [
     "psycopg-pool>=3.2.1,<4",
     "sqlalchemy>=2,<3",
     "numpy>=1.21,<3",
+    "greenlet>=3.2.3",
 ]
 
 [tool.poetry.urls]
-"Source Code" = "https://github.com/yugabyte/langchain-yugabytedb/tree/master/langchain_yugabytedb"
+"Source Code" = "https://github.com/nchandrappa/langchain-yugabytedb/tree/master/langchain_yugabytedb"
 
 [dependency-groups]
 test = [

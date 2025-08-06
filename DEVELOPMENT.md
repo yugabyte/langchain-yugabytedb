@@ -13,8 +13,10 @@ source .venv/bin/activate
 
 Install package in editable mode.
 ```shell
+uv pip install pipx  
+pipx install poetry
 poetry install
-pip install pytest pytest_asyncio pytest-timeout langchain-core langchain_tests sqlalchemy psycopg numpy pgvector
+uv pip install pytest pytest_asyncio pytest-timeout langchain-core langchain_tests sqlalchemy psycopg numpy pgvector
 ```
 
 Start YugabyteDB RF-1 Universe.

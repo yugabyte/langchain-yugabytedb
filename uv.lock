@@ -497,8 +497,27 @@ wheels = [
 ]
 
 [[package]]
-name = "langchain-postgres"
-version = "0.0.14"
+name = "langchain-tests"
+version = "0.3.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "langchain-core" },
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+    { name = "pytest-socket" },
+    { name = "syrupy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6e/36/bf5ee3721288c2403151d0c9fb58f427f6522f0a29034e6e07777fd015e8/langchain_tests-0.3.7.tar.gz", hash = "sha256:28c1edff887de6f50b399345568f54f38797b7fa25d1d01b05e07172717ff7a0", size = 29589, upload-time = "2024-12-09T20:16:24.675Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7e/d5/d9a039c44333ead069bf18606a4ba7a5dab0b913fe8eb90241e7e8fe7ed4/langchain_tests-0.3.7-py3-none-any.whl", hash = "sha256:ebbb15bb4b81a75b15272ecfd8a6b9ff45f015c6edccdcf0a16d1fe461a33c90", size = 36039, upload-time = "2024-12-09T20:16:23.673Z" },
+]
+
+[[package]]
+name = "langchain-yugabytedb"
+version = "0.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "asyncpg" },
@@ -546,25 +565,6 @@ test = [
     { name = "pytest-socket", specifier = ">=0.7.0" },
     { name = "pytest-timeout", specifier = ">=2.3.1" },
     { name = "ruff", specifier = ">=0.9.7" },
-]
-
-[[package]]
-name = "langchain-tests"
-version = "0.3.7"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "httpx" },
-    { name = "langchain-core" },
-    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
-    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
-    { name = "pytest" },
-    { name = "pytest-asyncio" },
-    { name = "pytest-socket" },
-    { name = "syrupy" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/6e/36/bf5ee3721288c2403151d0c9fb58f427f6522f0a29034e6e07777fd015e8/langchain_tests-0.3.7.tar.gz", hash = "sha256:28c1edff887de6f50b399345568f54f38797b7fa25d1d01b05e07172717ff7a0", size = 29589, upload-time = "2024-12-09T20:16:24.675Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/7e/d5/d9a039c44333ead069bf18606a4ba7a5dab0b913fe8eb90241e7e8fe7ed4/langchain_tests-0.3.7-py3-none-any.whl", hash = "sha256:ebbb15bb4b81a75b15272ecfd8a6b9ff45f015c6edccdcf0a16d1fe461a33c90", size = 36039, upload-time = "2024-12-09T20:16:23.673Z" },
 ]
 
 [[package]]

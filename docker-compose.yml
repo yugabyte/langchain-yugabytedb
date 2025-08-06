@@ -1,27 +1,26 @@
-name: langchain-postgres
+name: langchain-yugabytedb
 
 services:
-  pgvector:
-    # postgres with the pgvector extension
-    image: pgvector/pgvector:pg16
-    environment:
-      POSTGRES_DB: langchain_test
-      POSTGRES_USER: langchain
-      POSTGRES_PASSWORD: langchain
+  yugabytedb-node1:
+    container_name: yugabytedb-node1
+    hostname: yugabytedb-node1
+    image: yugabytedb/yugabyte:2025.1.0.0-b168
+    platform: linux/amd64
+    command:
+    - sh
+    - -c
+    - |
+      bin/yugabyted start --background=false 
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
     ports:
-      - "5432:5432"
-    command: |
-      postgres -c log_statement=all
+      - "7000:7000"
+      - "9000:9000"
+      - "5433:5433"
+      - "15433:15433"
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "psql postgresql://langchain:langchain@localhost/langchain --command 'SELECT 1;' || exit 1",
-        ]
-      interval: 5s
-      retries: 60
-    volumes:
-      - postgres_data_pgvector_16:/var/lib/postgresql/data
-
-volumes:
-  postgres_data_pgvector_16:
+       test: ["CMD", "/home/yugabyte/bin/yugabyted", "status"]
+       interval: 30s
+       timeout: 10s
+       retries: 10

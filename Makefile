@@ -8,7 +8,7 @@ all: help
 ######################
 
 # Define a variable for the test file path.
-TEST_FILE ?= tests/unit_tests/
+TEST_FILE ?= tests/unit_tests/yugabytedb_tests
 
 test:
 	uv run pytest --disable-socket --allow-unix-socket $(TEST_FILE)
