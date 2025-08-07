@@ -28,7 +28,7 @@ from langchain_core.embeddings import DeterministicFakeEmbedding
 from langchain_yugabytedb import YBEngine, YugabyteDBVectorStore
 
 # Replace the connection string with your own YugabyteDB connection string
-CONNECTION_STRING = "postgresql+psycopg3://yugabyte:@localhost:5433/yugabyte"
+CONNECTION_STRING = "postgresql+psycopg://yugabyte:@localhost:5433/yugabyte"
 engine = YBEngine.from_connection_string(url=CONNECTION_STRING)
 
 # Replace the vector size with your own vector size
