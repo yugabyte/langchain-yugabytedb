@@ -1,6 +1,6 @@
 [project]
 name = "langchain-yugabytedb"
-version = "0.0.3"
+version = "0.0.4"
 description = "An integration package connecting YugabyteDB and LangChain"
 authors = [{name = "Yugabyte", email = "nikhil@yugabyte.com"},]
 readme = "README.md"
