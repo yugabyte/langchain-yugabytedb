@@ -1,7 +1,7 @@
 [project]
 name = "langchain-yugabytedb"
-version = "0.0.2"
-description = "An integration package connecting Postgres and LangChain"
+version = "0.0.3"
+description = "An integration package connecting YugabyteDB and LangChain"
 authors = [{name = "Yugabyte", email = "nikhil@yugabyte.com"},]
 readme = "README.md"
 repository = "https://github.com/nchandrappa/langchain-yugabytedb"

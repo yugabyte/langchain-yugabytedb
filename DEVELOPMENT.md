@@ -16,7 +16,7 @@ Install package in editable mode.
 uv pip install pipx  
 pipx install poetry
 poetry install
-uv pip install pytest pytest_asyncio pytest-timeout langchain-core langchain_tests sqlalchemy psycopg numpy pgvector
+uv pip install pytest pytest_asyncio pytest-timeout langchain-core langchain_tests sqlalchemy psycopg psycopg-binary numpy pgvector
 ```
 
 Start YugabyteDB RF-1 Universe.
