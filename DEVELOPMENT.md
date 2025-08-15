@@ -5,7 +5,7 @@ allow you to contribute changes to the project.
 
 Acquire sources and create virtualenv.
 ```shell
-git clone https://github.com/langchain-ai/langchain-yugabytedb
+git clone https://github.com/yugabyte/langchain-yugabytedb
 cd langchain-yugabytedb
 uv venv --python=3.13
 source .venv/bin/activate
